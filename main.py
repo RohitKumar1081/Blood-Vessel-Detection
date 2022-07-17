@@ -2,11 +2,6 @@ import cv2
 import numpy as np
 import streamlit as st
 
-def display_img(img,cmap=None):
-    fig = plt.figure(figsize=(10,8))
-    ax = fig.add_subplot(111)
-    ax.imshow(img,cmap='gray')
-
 def extract_bv(image):
 
     clahe = cv2.createCLAHE(clipLimit=2.0, tileGridSize=(8,8))
@@ -33,7 +28,7 @@ def extract_bv(image):
     newfin = cv2.erode(fin, cv2.getStructuringElement(cv2.MORPH_ELLIPSE,(3,3)), iterations=1)
 
     fundus_eroded = cv2.bitwise_not(newfin) 
-    xmask = np.ones(fundus.shape[:2], dtype="uint8") * 255
+    xmask = np.ones(img.shape[:2], dtype="uint8") * 255
     xcontours, xhierarchy = cv2.findContours(fundus_eroded.copy(),cv2.RETR_LIST,cv2.CHAIN_APPROX_SIMPLE)
     for cnt in xcontours:
         shape = "unidentified"
@@ -60,7 +55,6 @@ if __name__ == "__main__":
     else:
         img = cv2.imread("example.tif")
 
-    img = cv2.resize(img,(800,615))
 
     img = cv2.cvtColor(img,cv2.COLOR_BGR2RGB)
     img1=cv2.addWeighted(img,4, cv2.GaussianBlur(img, (0,0) , 20) ,-4 ,128)
