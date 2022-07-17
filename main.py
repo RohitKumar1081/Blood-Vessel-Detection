@@ -50,7 +50,7 @@ if __name__ == "__main__":
     st.title("Blood Vessel Detection")
 
     uploaded_file = st.sidebar.file_uploader("Load your fundus image here")
-    if image_upload is not None:
+    if uploaded_file is not None:
         file_bytes = np.asarray(bytearray(uploaded_file.read()), dtype=np.uint8)
         img = cv2.imdecode(file_bytes, 1)
     else:
