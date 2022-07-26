@@ -3,6 +3,15 @@ import numpy as np
 import streamlit as st
 
 def extract_bv(image):
+    
+    """
+    Internal function to process a passed image
+    Parameters:
+        image: the image to be processed 
+        
+    Returns:
+        The image object with detected blood vessel
+    """
 
     clahe = cv2.createCLAHE(clipLimit=2.0, tileGridSize=(8,8))
     contrast_enhanced_green_fundus = clahe.apply(image)
